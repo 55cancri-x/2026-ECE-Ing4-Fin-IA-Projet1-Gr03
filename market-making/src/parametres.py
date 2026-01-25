@@ -15,7 +15,7 @@ class Parametres:
     k: float = 1.5         # sensibilité au spread (plus grand => moins d'exécutions quand spread augmente)
 
     # Inventaire
-    q_max: int = 10        # contrainte simple : |q| <= q_max
+    q_max: int = 30        # contrainte simple : |q| <= q_max
 
     # Coûts (optionnel mais utile)
     fee_per_trade: float = 0.0  # tu peux mettre 0.001 etc. si vous voulez

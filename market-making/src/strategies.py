@@ -25,11 +25,14 @@ class StrategieSkewInventaire:
         self.gamma = float(gamma)
 
     def quote(self, S: float, q: int) -> StrategyOutput:
-        # skew: si q>0 (long), on veut vendre => on baisse ask et on baisse aussi bid
-        # (donc on décale les deux quotes vers le bas)
+        half = self.base_spread / 2.0
         skew = self.gamma * q
 
-        bid = S - self.base_spread / 2.0 - skew
-        ask = S + self.base_spread / 2.0 - skew
+        # On définit directement les distances au mid
+        delta_b = max(0.0, half + skew)   # q>0 => delta_b augmente => bid plus bas => moins d'achats
+        delta_a = max(0.0, half - skew)   # q>0 => delta_a diminue => ask plus proche => plus de ventes
+
+        bid = S - delta_b
+        ask = S + delta_a
         return StrategyOutput(bid=bid, ask=ask)
 
