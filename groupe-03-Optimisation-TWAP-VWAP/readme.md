@@ -22,3 +22,4 @@ Python avec OR-Tools ou cvxpy pour l'optimisation sous contraintes
 Backtrader ou vectorbt pour le backtesting
 Données tick-by-tick (Binance, Alpaca) pour validation
 Pandas pour l'analyse de séries temporelles financières
+
