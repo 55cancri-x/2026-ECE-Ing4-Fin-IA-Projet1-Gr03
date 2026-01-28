@@ -94,7 +94,13 @@ python run_compare_strat.py
 Données marché réelles (snapshot intraday):
 python run_real_data.py
 
+Reinforcement Learning Agent:
+python .\run_rl_train.py
+python .\run_rl_test.py
+
 ## 6. Test
 
 Lancer tous les tests :
+cd .\groupe-03-Optimisation-TWAP-VWAP
 python -m pytest
+
