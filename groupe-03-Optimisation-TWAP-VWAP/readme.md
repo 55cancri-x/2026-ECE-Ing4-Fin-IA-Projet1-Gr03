@@ -2,24 +2,99 @@
 # Membres : Ilhan Taskin  Farhan Morisson
 ING4 Groupe 3
 
-Description du problème et contexte L'exécution optimale de gros ordres boursiers nécessite de découper les transactions en sous-ordres pour minimiser l'impact sur le marché. Les stratégies TWAP (Time-Weighted Average Price) et VWAP (Volume-Weighted Average Price) se formulent comme des problèmes d'optimisation sous contraintes (volume, timing, coût d'impact) où la programmation par contraintes permet d'intégrer des règles de trading complexes.
+## 1. Contexte et problématique
 
-Références multiples
+L’exécution de gros ordres boursiers pose un problème central en finance de marché : comment acheter ou vendre un volume important sans influencer excessivement le prix du marché.
 
-Stanford : Volume Weighted Average Price Optimal Execution - Boyd et al.
-IJCAI : An End-to-End Optimal Trade Execution Framework - IJCAI 2020
-Columbia : An Optimal Control Strategy for Execution of Large Stock Orders Using LSTMs - Columbia Finance
-Safe Execution : Safe and Compliant Cross-Market Trade Execution via Constrained RL - arXiv 2025
-Approches suggérées
+Lorsqu’un ordre est trop concentré dans le temps, il peut créer un impact de marché : le prix évolue défavorablement à cause de la pression d’achat ou de vente. À l’inverse, une exécution trop lente peut exposer le trader à un risque de timing et à une dégradation du prix moyen obtenu.
 
-Modéliser le problème d'exécution comme CSP avec contraintes de volume et timing
-Implémenter les stratégies TWAP et VWAP comme baselines
-Développer une optimisation sous contraintes d'impact de marché
-Comparer avec des approches de contrôle optimal et reinforcement learning
-Technologies pertinentes
+Deux stratégies de référence sont classiquement utilisées :
 
-Python avec OR-Tools ou cvxpy pour l'optimisation sous contraintes
-Backtrader ou vectorbt pour le backtesting
-Données tick-by-tick (Binance, Alpaca) pour validation
-Pandas pour l'analyse de séries temporelles financières
+- TWAP (Time-Weighted Average Price) : le volume total est réparti uniformément dans le temps.
 
+- VWAP (Volume-Weighted Average Price) : le volume est réparti proportionnellement au volume de marché observé.
+
+Ces approches peuvent être vues comme des cas particuliers d’un problème plus général :
+
+Trouver un planning d’exécution qui minimise l’impact de marché tout en respectant des contraintes de volume, de timing et d’alignement avec la liquidité du marché.
+
+Dans ce projet, nous formulons ce problème comme un problème de satisfaction et d’optimisation sous contraintes (CSP), résolu à l’aide d’un solveur CP-SAT (OR-Tools). Nous comparons cette approche aux baselines TWAP et VWAP, et proposons une ouverture vers des méthodes d’apprentissage par renforcement (Reinforcement Learning).
+
+## 2. Objectifs du projet
+
+L’objectif de ce projet est de concevoir et d’évaluer un système d’exécution d’ordres boursiers capable de répartir un volume important dans le temps de manière efficace, réaliste et contrôlée.
+
+Plus précisément, nous cherchons à :
+
+Mettre en œuvre des stratégies de référence afin de disposer de points de comparaison clairs. La stratégie TWAP sert de baseline simple et uniforme, tandis que la stratégie VWAP permet de s’aligner sur le profil de liquidité du marché.
+
+Formuler le problème comme une optimisation sous contraintes, dans laquelle le volume total à exécuter, les limites de participation au marché et les bornes par tranche sont explicitement intégrées dans un modèle formel.
+
+Minimiser un proxy d’impact de marché, en favorisant des plannings d’exécution lissés qui évitent les concentrations de volume susceptibles de déplacer les prix.
+
+Contrôler l’écart par rapport à un benchmark VWAP, afin de garantir que l’exécution reste cohérente avec la dynamique de liquidité observée sur le marché.
+
+Analyser le compromis entre ces deux objectifs antagonistes, en mettant en évidence une frontière de Pareto entre discrétion d’exécution (faible impact) et alignement avec le marché (faible erreur de tracking).
+
+Valider l’approche sur données réelles intraday, en utilisant des volumes de marché récents pour construire des plannings d’exécution réalistes.
+
+Ouvrir vers des approches basées sur l’apprentissage par renforcement, dans lesquelles une politique d’exécution pourrait être apprise directement à partir de l’interaction avec un environnement de marché simulé ou réel.
+
+## 3. Architecture du projet
+groupe-03-Optimisation-TWAP-VWAP/
+├── README.md
+├── src/
+│ ├── strategies/
+│ │ ├── twap.py # Baseline TWAP
+│ │ ├── vwap.py # Baseline VWAP
+│ │ └── constrained_opt_cp.py # Optimisation CSP (CP-SAT)
+│ └── data/
+│ └── market_data.py # Chargement données marché (Yahoo Finance)
+├── run_twap.py
+├── run_vwap.py
+├── run_opt_cp.py
+├── run_compare_strat.py
+├── run_real_data.py
+├── tests/
+│ ├── test_twap.py
+│ ├── test_vwap.py
+│ └── test_opt_cp.py
+└── slides/
+└── presentation.pdf
+
+## 4. Installation
+Prérequis : Python ≥ 3.9
+
+Création de l’environnement virtuel:
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+Installation des dépendances:
+python -m pip install --upgrade pip
+python -m pip install ortools pytest yfinance pandas matplotlib
+
+Vérification:
+python -c "import ortools, yfinance, pandas; print('Dependencies OK')"
+
+## 5. Utilisation
+
+Baseline TWAP:
+python run_twap.py
+
+Baseline VWAP:
+python run_vwap.py
+
+Optimisation sous contraintes (CSP / CP-SAT):
+python run_opt_cp.py
+
+Comparaison des stratégies:
+python run_compare_strat.py
+
+Données marché réelles (snapshot intraday):
+python run_real_data.py
+
+## 6. Test
+
+Lancer tous les tests :
+python -m pytest
