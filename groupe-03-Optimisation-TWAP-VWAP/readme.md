@@ -44,23 +44,33 @@ Ouvrir vers des approches basées sur l’apprentissage par renforcement, dans l
 groupe-03-Optimisation-TWAP-VWAP/
 ├── README.md
 ├── src/
-│ ├── strategies/
-│ │ ├── twap.py # Baseline TWAP
-│ │ ├── vwap.py # Baseline VWAP
-│ │ └── constrained_opt_cp.py # Optimisation CSP (CP-SAT)
-│ └── data/
-│ └── market_data.py # Chargement données marché (Yahoo Finance)
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── data/
+│   │   └── market_data.py
+│   ├── strategies/
+│   │   ├── __init__.py
+│   │   ├── twap.py
+│   │   ├── vwap.py
+│   │   └── constrained_opt_cp.py
+│   └── rl/
+│       ├── __init__.py
+│       ├── env.py
+│       └── qlearning.py
+├── tests/
+│   ├── test_twap.py
+│   ├── test_vwap.py
+│   └── test_opt_cp.py
 ├── run_twap.py
 ├── run_vwap.py
-├── run_opt_cp.py
+├── run_opt.py
 ├── run_compare_strat.py
 ├── run_real_data.py
-├── tests/
-│ ├── test_twap.py
-│ ├── test_vwap.py
-│ └── test_opt_cp.py
+├── run_rl_train.py
+├── run_rl_test.py
+├── rl_qtable.pkl            # généré par run_rl_train.py
 └── slides/
-└── presentation.pdf
+    └── presentation.pdf
 
 ## 4. Installation
 Prérequis : Python ≥ 3.9
@@ -100,7 +110,27 @@ python .\run_rl_test.py
 
 ## 6. Test
 
-Lancer tous les tests :
+**Lancer tous les tests** :
 cd .\groupe-03-Optimisation-TWAP-VWAP
 python -m pytest
 
+## 7. Résultats et analyse
+
+Les expériences montrent un compromis clair :
+
+
+- **TWAP** : faible impact, mais mauvaise adaptation à la liquidité du marché
+- **VWAP** : excellent alignement avec le marché, mais impact plus élevé
+- **OPT (CSP)** : compromis ajustable entre les deux via les poids \( w_{impact} \) et \( w_{track} \)
+
+Cette approche met en évidence une **frontière de Pareto** entre discrétion d’exécution et suivi du benchmark VWAP.
+
+## 8. Perspectives (Reinforcement Learning)
+
+Une extension naturelle consiste à remplacer le solveur CSP par un **agent d’apprentissage par renforcement** :
+
+- **État** : volume restant, temps restant, liquidité observée
+- **Action** : quantité à exécuter
+- **Récompense** : combinaison négative de l’impact et de l’erreur de tracking
+
+Cette approche permettrait à l’agent d’apprendre une politique d’exécution directement à partir de l’interaction avec un environnement de marché simulé ou réel.
