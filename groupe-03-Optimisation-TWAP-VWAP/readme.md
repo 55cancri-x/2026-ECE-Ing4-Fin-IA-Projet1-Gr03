@@ -2,6 +2,7 @@
 # Membres : Ilhan Taskin  Farhan Morisson
 ING4 Groupe 3
 
+------------------------------------------------------------------------------------------
 ## 1. Contexte et problématique
 
 L’exécution de gros ordres boursiers pose un problème central en finance de marché : comment acheter ou vendre un volume important sans influencer excessivement le prix du marché.
@@ -20,6 +21,7 @@ Trouver un planning d’exécution qui minimise l’impact de marché tout en re
 
 Dans ce projet, nous formulons ce problème comme un problème de satisfaction et d’optimisation sous contraintes (CSP), résolu à l’aide d’un solveur CP-SAT (OR-Tools). Nous comparons cette approche aux baselines TWAP et VWAP, et proposons une ouverture vers des méthodes d’apprentissage par renforcement (Reinforcement Learning).
 
+------------------------------------------------------------------------------------------
 ## 2. Objectifs du projet
 
 L’objectif de ce projet est de concevoir et d’évaluer un système d’exécution d’ordres boursiers capable de répartir un volume important dans le temps de manière efficace, réaliste et contrôlée.
@@ -40,6 +42,7 @@ Valider l’approche sur données réelles intraday, en utilisant des volumes de
 
 Ouvrir vers des approches basées sur l’apprentissage par renforcement, dans lesquelles une politique d’exécution pourrait être apprise directement à partir de l’interaction avec un environnement de marché simulé ou réel.
 
+------------------------------------------------------------------------------------------
 ## 3. Architecture du projet
 groupe-03-Optimisation-TWAP-VWAP/
 ├── README.md
@@ -72,6 +75,7 @@ groupe-03-Optimisation-TWAP-VWAP/
 └── slides/
     └── presentation.pdf
 
+------------------------------------------------------------------------------------------
 ## 4. Installation
 Prérequis : Python ≥ 3.9
 
@@ -87,6 +91,7 @@ python -m pip install ortools pytest yfinance pandas matplotlib
 Vérification:
 python -c "import ortools, yfinance, pandas; print('Dependencies OK')"
 
+------------------------------------------------------------------------------------------
 ## 5. Utilisation
 
 Baseline TWAP:
@@ -108,12 +113,14 @@ Reinforcement Learning Agent:
 python .\run_rl_train.py
 python .\run_rl_test.py
 
+------------------------------------------------------------------------------------------
 ## 6. Test
 
 **Lancer tous les tests** :
 cd .\groupe-03-Optimisation-TWAP-VWAP
 python -m pytest
 
+------------------------------------------------------------------------------------------
 ## 7. Résultats et analyse
 
 Les expériences montrent un compromis clair :
@@ -125,6 +132,7 @@ Les expériences montrent un compromis clair :
 
 Cette approche met en évidence une **frontière de Pareto** entre discrétion d’exécution et suivi du benchmark VWAP.
 
+------------------------------------------------------------------------------------------
 ## 8. Perspectives (Reinforcement Learning)
 
 Une extension naturelle consiste à remplacer le solveur CSP par un **agent d’apprentissage par renforcement** :
@@ -134,3 +142,5 @@ Une extension naturelle consiste à remplacer le solveur CSP par un **agent d’
 - **Récompense** : combinaison négative de l’impact et de l’erreur de tracking
 
 Cette approche permettrait à l’agent d’apprendre une politique d’exécution directement à partir de l’interaction avec un environnement de marché simulé ou réel.
+
+-----------------------------------------------------------------------------------------
