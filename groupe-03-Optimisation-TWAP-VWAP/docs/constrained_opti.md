@@ -1,6 +1,6 @@
 # Constrained Optimization (CP-SAT)
 
-Cette approche formule l’exécution d’un ordre comme un **problème d’optimisation sous contraintes**.  
+Cette approche rend l’exécution d’un ordre comme un **problème d’optimisation sous contraintes**.  
 L’objectif principal est de répartir un **volume total à exécuter** sur plusieurs **tranches de temps**, tout en respectant les **limites de liquidité du marché** et en minimisant un **coût global** associé à l’exécution.
 
 Le modèle est résolu à l’aide du **solveur CP-SAT de Google OR-Tools**, qui permet :
