@@ -12,9 +12,7 @@ Le volume total à exécuter est réparti uniformément dans le temps.
 **Formule**
 Pour un volume total (Q) et (N) tranches :
 
-[
-x_t = \frac{Q}{N}
-]
+x_t = Q / N
 
 (arrondi à l’entier et ajusté pour sommer exactement à (Q))
 
@@ -37,15 +35,11 @@ Le volume est réparti proportionnellement au volume de marché observé.
 **Formule**
 Pour des volumes de marché (V_t) :
 
-[
-x_t = Q \cdot \frac{V_t}{\sum_t V_t}
-]
+x_t = Q · V_t / (∑_t V_t)
 
 Une contrainte de participation limite l’exécution :
 
-[
-x_t \leq \alpha \cdot V_t
-]
+x_t ≤ α · V_t
 
 avec (\alpha) le taux de participation.
 
@@ -67,20 +61,14 @@ Formuler l’exécution comme un problème d’optimisation sous contraintes.
 **Contraintes principales**
 
 * Conservation du volume :
-  [
-  \sum_t x_t = Q
-  ]
+  ∑_t x_t = Q
 * Bornes par tranche :
-  [
-  0 \leq x_t \leq \alpha \cdot V_t
-  ]
+  0 ≤ x_t ≤ α · V_t
 
 **Fonction objectif**
 Minimisation d’un compromis entre impact et tracking VWAP :
 
-[
-\min \sum_t \big( \lambda_{impact} x_t^2 + \lambda_{track} (x_t - x_t^{VWAP})^2 \big)
-]
+Minimiser : ∑_t [ λ_impact · x_t² + λ_track · (x_t − x_t_VWAP)² ]
 
 **Avantages**
 
@@ -99,18 +87,14 @@ Minimisation d’un compromis entre impact et tracking VWAP :
 Un agent apprend une politique d’exécution par interaction avec un environnement simulé.
 
 **État**
-(
-(t, q_{remaining})
-)
+(t, q_remaining)
 
 **Action**
 Fraction du volume maximal autorisé à l’instant (t).
 
 **Récompense**
 
-[
-r_t = - ( \lambda_{impact} x_t^2 + \lambda_{track} (x_t - x_t^{VWAP})^2 )
-]
+r_t = − [ λ_impact · x_t² + λ_track · (x_t − x_t_VWAP)² ]
 
 Pénalité terminale si (Q) n’est pas entièrement exécuté.
 
