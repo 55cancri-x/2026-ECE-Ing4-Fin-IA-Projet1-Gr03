@@ -79,48 +79,69 @@ groupe-03-Optimisation-TWAP-VWAP/
 
 ------------------------------------------------------------------------------------------
 ## 4. Installation
-Prérequis : Python ≥ 3.9
+Prérequis : 
+```
+Python ≥ 3.9
+```
 
 Création de l’environnement virtuel:
-
+```
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-
+```
 Installation des dépendances:
+```
 python -m pip install --upgrade pip
 python -m pip install ortools pytest yfinance pandas matplotlib
+```
 
 Vérification:
+```
 python -c "import ortools, yfinance, pandas; print('Dependencies OK')"
+```
 
 ------------------------------------------------------------------------------------------
 ## 5. Utilisation
 
 Baseline TWAP:
+```
 python run_twap.py
+```
 
 Baseline VWAP:
+```
 python run_vwap.py
+```
 
 Optimisation sous contraintes (CSP / CP-SAT):
+```
 python run_opt_cp.py
+```
 
 Comparaison des stratégies:
+```
 python run_compare_strat.py
+```
 
 Données marché réelles (snapshot intraday):
+```
 python run_real_data.py
+```
 
 Reinforcement Learning Agent:
+```
 python .\run_rl_train.py
 python .\run_rl_test.py
+```
 
 ------------------------------------------------------------------------------------------
 ## 6. Test
 
 **Lancer tous les tests** :
+```
 cd .\groupe-03-Optimisation-TWAP-VWAP
 python -m pytest
+```
 
 ------------------------------------------------------------------------------------------
 ## 7. Résultats et analyse
