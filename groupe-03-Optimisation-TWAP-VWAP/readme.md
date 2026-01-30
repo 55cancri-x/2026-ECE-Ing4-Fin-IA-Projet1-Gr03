@@ -146,26 +146,3 @@ python -m pytest
 ```
 
 ------------------------------------------------------------------------------------------
-## 7. Résultats et analyse
-
-Les expériences montrent un compromis clair :
-
-
-- **TWAP** : faible impact, mais mauvaise adaptation à la liquidité du marché
-- **VWAP** : excellent alignement avec le marché, mais impact plus élevé
-- **OPT (CSP)** : compromis ajustable entre les deux via les poids \( w_{impact} \) et \( w_{track} \)
-
-Cette approche met en évidence une **frontière de Pareto** entre discrétion d’exécution et suivi du benchmark VWAP.
-
-------------------------------------------------------------------------------------------
-## 8. Perspectives (Reinforcement Learning)
-
-Une extension naturelle consiste à remplacer le solveur CSP par un **agent d’apprentissage par renforcement** :
-
-- **État** : volume restant, temps restant, liquidité observée
-- **Action** : quantité à exécuter
-- **Récompense** : combinaison négative de l’impact et de l’erreur de tracking
-
-Cette approche permettrait à l’agent d’apprendre une politique d’exécution directement à partir de l’interaction avec un environnement de marché simulé ou réel.
-
------------------------------------------------------------------------------------------
