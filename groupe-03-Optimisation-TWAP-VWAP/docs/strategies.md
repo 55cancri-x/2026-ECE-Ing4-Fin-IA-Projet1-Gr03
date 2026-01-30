@@ -22,7 +22,7 @@ q = (q₁, q₂, …, qₙ)
 avec la contrainte :
 
 ```
-∑ qᵢ = Q_total
+∑ qᵢ = Q ou Q_total
 ```
 
 ## 1. TWAP (Time-Weighted Average Price)
