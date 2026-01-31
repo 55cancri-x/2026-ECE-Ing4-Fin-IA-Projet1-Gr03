@@ -80,16 +80,15 @@ groupe-03-Optimisation-TWAP-VWAP/
 
 ```
 ------------------------------------------------------------------------------------------
-## 4. Installation
+## 4. Installation (Windows)
 Prérequis : 
 ```
 Python ≥ 3.9
 ```
 
-Création de l’environnement virtuel:
+Création de l’environnement virtuel: 
 ```
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+python -m venv .venv .\.venv\Scripts\Activate.ps1
 ```
 Installation des dépendances:
 ```
@@ -102,8 +101,29 @@ Vérification:
 python -c "import ortools, yfinance, pandas; print('Dependencies OK')"
 ```
 
+### Pour MAC
+```
+python3 -m venv .venv .\.venv\Scripts\Activate.ps1
+```
+Installation des dépendances:
+```
+python3 -m pip install --upgrade pip
+python3 -m pip install ortools pytest yfinance pandas matplotlib
+```
+
+Vérification:
+```
+python3 -c "import ortools, yfinance, pandas; print('Dependencies OK')"
+```
+
 ------------------------------------------------------------------------------------------
-## 5. Utilisation
+## 5. Utilisation (Windows)
+### pour Mac ajouter un '3' après 'python', ex: python3
+
+Entrer dans le fichier :
+```
+cd groupe-03-Optimisation-TWAP-VWAP
+```
 
 Baseline TWAP:
 ```
@@ -135,6 +155,7 @@ Reinforcement Learning Agent:
 python .\run_rl_train.py
 python .\run_rl_test.py
 ```
+ou alors simplement lancer directement les codes avec le bouton 'Run File'
 
 ------------------------------------------------------------------------------------------
 ## 6. Test
@@ -146,3 +167,4 @@ python -m pytest
 ```
 
 ------------------------------------------------------------------------------------------
+ 
