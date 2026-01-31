@@ -16,7 +16,7 @@ def track_cost(x, target):
 def main():
     Q = 200
     volumes = [10, 40, 200, 100, 100]
-    participation_rate = 1.0
+    participation_rate = 1
 
     target = vwap_target(Q, volumes)
 
