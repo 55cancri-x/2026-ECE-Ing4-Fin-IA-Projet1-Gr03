@@ -88,21 +88,45 @@ $$
 
 ## Contraintes
 
-1. **Somme des volumes exécutés égale au volume total :**
+1. Contrainte de complétion (ordre total)
+
+Le volume total exécuté doit être égal à la quantité cible :
 
 $$
-\sum_t x_t = Q
+\sum_{t=1}^{N} x_t = Q
 $$
 
-> Cette contrainte assure que tout le volume prévu est exécuté.
+2. Non-négativité
 
-2. **Borne de liquidité par tranche :**
+Le volume exécuté à chaque tranche doit être positif ou nul :
 
 $$
-0 \le x_t \le \alpha \cdot V_t
+x_t \ge 0 \quad \forall t
 $$
 
-> Cela garantit que l’ordre ne dépasse pas une fraction raisonnable du volume du marché à chaque instant, limitant l’impact sur le marché.
+3. Contrainte de participation maximale (participation rate)
+
+Chaque tranche est limitée à une fraction maximale du volume de marché :
+
+$$
+x_t \le \alpha \, V_t \quad \forall t
+$$
+
+où $\alpha \in (0,1]$ est le **taux de participation maximal autorisé**.
+
+4. Capacité maximale par tranche (override / max par slice)
+
+En plus du taux de participation global, il est possible d’imposer un plafond strict sur certaines tranches :
+
+$$
+x_t \le \overline{cap}_t \quad \forall t
+$$
+
+La contrainte effectivement appliquée dans le solveur est donc :
+
+$$
+x_t \le \min\left(\alpha V_t,\; \overline{cap}_t\right)
+$$
 
 ## Cible VWAP
 
