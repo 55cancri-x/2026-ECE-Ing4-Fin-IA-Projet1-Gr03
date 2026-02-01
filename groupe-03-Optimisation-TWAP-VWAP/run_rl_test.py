@@ -6,10 +6,13 @@ from src.strategies.vwap import vwap_schedule
 from src.strategies.constrained_opt_cp import constrained_opt_cp_schedule
 
 
-def impact_cost(x):
-    return sum(v * v for v in x)
+def impact_cost(x, volumes, eps=1e-9):
+    # Impact proxy cohérent : sum(x_t^2 / volume_t)
+    return sum((x[i] * x[i]) / (volumes[i] + eps) for i in range(len(x)))
 
-def track_cost(x, target):
+
+def track_cost_l2(x, target):
+    # Tracking L2 : sum((x_t - target_t)^2)
     return sum((x[i] - target[i]) ** 2 for i in range(len(x)))
 
 
@@ -40,20 +43,27 @@ def main():
     )
 
     rl_slices = env.rollout_greedy(Q_table)
+    print("------------------------------------")
 
     print("Volumes:", volumes)
-    print("VWAP target:", target)
+    #print("VWAP target:", target)
     print()
 
     rows = [
         ("TWAP", twap),
         ("VWAP", vwap),
-        ("OPT (CP)", opt),
+        #("OPT (CP)", opt),
         ("RL (Q-learn)", rl_slices),
     ]
 
     for name, x in rows:
-        print(f"{name:12} -> {x} | sum={sum(x)} impact={impact_cost(x)} track={track_cost(x, target)}")
+       print(
+    f"{name:12} -> {x} | sum={sum(x)} "
+    f"impact={impact_cost(x, volumes):.6f} "
+    f"track={track_cost_l2(x, target)}"
+)
+
+
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ def main():
             q_bin=5,
         )
 
-        Q_part = qlearning_train(env, episodes=10000, seed=42+k)
+        Q_part = qlearning_train(env, episodes=1000, seed=42+k) #changer ici pour ameliorer la perf
 
         # merge (simple): overwrite, ou average si tu veux faire mieux
         Q_table.update(Q_part)

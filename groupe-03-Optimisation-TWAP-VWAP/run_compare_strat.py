@@ -90,7 +90,7 @@ def main():
 
     rows = [
         ("TWAP", twap),
-        ("VWAP (no cap)", vwap),
+        ("VWAP (ideal)", vwap),
         ("OPT impact+track (CSP)", res_mix.slices),
     ]
 
