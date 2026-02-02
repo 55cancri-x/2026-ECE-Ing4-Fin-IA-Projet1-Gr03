@@ -37,7 +37,7 @@ def yahoo_volumes_into_slices(
     ticker: str,
     day: str,
     N: int,
-    interval: str = "1min",
+    interval: str = "1m",
     market_tz: str = "America/New_York",
 ):
     d0 = pd.Timestamp(day).tz_localize(market_tz)
@@ -90,7 +90,7 @@ def yahoo_live_price(ticker: str):
     except Exception:
         pass
 
-    hist = t.history(period="1d", interval="1min")
+    hist = t.history(period="1d", interval="1m")
     if hist.empty:
         raise RuntimeError(f"Impossible de récupérer le prix live pour {ticker}")
     return float(hist["Close"].iloc[-1])
@@ -166,7 +166,7 @@ def main():
         ticker=ticker,
         day=trading_day,
         N=N,
-        interval="1min",
+        interval="1m",
         market_tz="America/New_York",
     )
 
