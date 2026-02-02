@@ -90,7 +90,7 @@ def yahoo_live_price(ticker: str):
     except Exception:
         pass
 
-    hist = t.history(period="1d", interval="1m")
+    hist = t.history(period="1d", interval="1min")
     if hist.empty:
         raise RuntimeError(f"Impossible de récupérer le prix live pour {ticker}")
     return float(hist["Close"].iloc[-1])
@@ -166,7 +166,7 @@ def main():
         ticker=ticker,
         day=trading_day,
         N=N,
-        interval="1m",
+        interval="1min",
         market_tz="America/New_York",
     )
 
@@ -204,7 +204,7 @@ def main():
     )
 
     print("\n--------------------------------------------------------------------------")
-    print(f"Stock = {ticker} | volumes day = {trading_day} | interval=1m -> slices N={N}")
+    print(f"Stock = {ticker} | volumes day = {trading_day} | interval=1min -> slices N={N}")
     print(f"Live Price = {live_price:.2f} USD")
     print("Q =", Q)
     print("volumes =", volumes)
