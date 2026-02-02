@@ -37,7 +37,7 @@ def yahoo_volumes_into_slices(
     ticker: str,
     day: str,
     N: int,
-    interval: str = "1m",
+    interval: str = "1min",
     market_tz: str = "America/New_York",
 ):
     d0 = pd.Timestamp(day).tz_localize(market_tz)
